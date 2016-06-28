@@ -1,5 +1,12 @@
 # objectives: 6_maintain_systems
 
+####Deploy, configure systems
+- *TODO: review these...*
+- **Install Red Hat Enterprise Linux automatically using Kickstart**
+- **Configure a physical machine to host virtual guests**
+- **Install Red Hat Enterprise Linux systems as virtual guests**
+- **Configure systems to launch virtual machines at boot**
+
 ####Configure networking and hostname resolution statically or dynamically
 
 #####Networking
