@@ -9,7 +9,7 @@
 - `firewall-cmd --reload` - reload changes
 - `firewall-cmd --get-default-zone` - see context of default zone
 
-####Diagnose and address routine SELinux policy violatios
+####Diagnose and address routine SELinux policy violations
 - `sestatus` - show status
 - `setenforce Enforcing (or 1)` - set SELinux to enforcing mode
 - `vi /etc/selinux/config` - config file to set perm state
