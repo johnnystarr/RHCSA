@@ -1,0 +1,367 @@
+#RHCSA Training
+##Objectives
+- [1 recovery](./objectives/1_recovery.md)
+- [2 essential tools](./objectives/2_essential_tools.md)
+- [3 operate running systems](./objectives/3_operate_running_systems.md)
+- [4 configure local storage](./objectives/4_configure_local_storage.md)
+- [5 file systems](./objectives/5_file_systems.md)
+- [6 maintain systems](./objectives/6_maintain_systems.md)
+- [7 manage users and groups](./objectives/7_manage_users_and_groups.md)
+- [8 selinux](./objectives/8_selinux.md)
+
+##Commands
+- [swapon](./commands/swapon.md)
+- [system-config-authentication](./commands/system-config-authentication.md)
+
+##Packages
+- [authconfig-gtk](./packages/authconfig-gtk.md)
+- [chrony](./packages/chrony.md)
+- [cifs-utils](./packages/cifs-utils.md)
+- [ipa-client](./packages/ipa-client.md)
+- [krb5-workstation](./packages/krb5-workstation.md)
+- [nfs-utils](./packages/nfs-utils.md)
+- [nss-pam-ldapd](./packages/nss-pam-ldapd.md)
+- [openldap-clients](./packages/openldap-clients.md)
+- [samba-client](./packages/samba-client.md)
+
+##Services
+- [nmb](./services/nmb.md)
+- [rpcbind](./services/rpcbind.md)
+- [smb](./services/smb.md)
+- [winbind](./services/winbind.md)
+
+##Course Objectives
+# objectives: 1_recovery
+
+The following objective is to Recover / Reset the root password on a RHEL 7 system.
+
+##Process
+- start or reboot the system
+- at the grub menu, press the [ESC] key to interrupt the boot proc
+- press 'e' to edit the boot record
+- scroll down to the 'linux16' entry and press the [end] key
+- add `rd.break console=tty1`
+- press CTRL-X to boot
+- remount in r/w mode: `mount -o remount,rw /sysroot`
+- switch to chroot jail: `chroot /sysroot`
+- reset pw: `passwd root`
+- create SELinux blank file under root: `touch /.autorelabel`
+- type `exit` twice to reboot system 
+
+# objectives: 2_essential_tools
+
+##Understand and use essential tools
+
+###Archive, compress, unpack and uncompress files:
+
+|  Tool      |   Archive                    |  Extract                  |
+|:----------:|:----------------------------:|:-------------------------:|
+| tar (gzip) | `tar cfzv archive.tar.gz`    | `tar xvf archive.tar.gz .`|
+| tar (bzip) | `tar cfjv archive.tar.bz`    | `tar xvf archive.tar.bz .`|
+| star       | `star -c -f=archive.tar dir/`| `star -x -f=archive.tar .`|
+| gzip       | `gzip file`                  | `gunzip file.gz`          |
+| bzip2      | `bzip2 file`                 | `bunzip file.bz2`         |
+
+###List, set and change standard ugo/rwx permissions
+####Create a test directory with 3 files
+`mkdir test && touch test/{file1,file2,file3}`
+####Listing
+`ls -l test/`
+####Changing Ownership
+- Recursively change owner & group
+- `chown -R nobody:wheel test/`
+
+####Changing Modes
+- Change mode to 0755 octal way
+- `chmod 0755 test/file1`
+- Change mode to 0755 ugo way
+- `chmod u=rwx,g=rx,o=rx test/file{2,3}`
+- List changes to verify
+- `ls -l test/`
+
+####Special Perms
+- `chmod 1750 test/file1` (Sticky Bit)
+- `chmod 2750 test/file2` (Set GID)
+- `chmod 4750 test/file3` (Set UID)
+
+# objectives: 3_operate_running_systems
+
+###Boot systems into different targets manually
+- view full list of targets `systemctl list-units --type=target --all`
+- get default run-level `systemctl get-default`
+- change to multi-user (RL 3) `systemctl multi-user.target`
+- switch to graphical  (RL 5) `systemctl isolate graphical.target`
+- set default to graphical `systemctl set-default graphical.target`
+
+###Identify CPU/memory intensive processes, adjust with renice & kill
+####Renice
+`renice [-n] priority [-g|-p|-u] identifiers (group, pid, user)`
+- change priority to proc `renice -n 5 -p 1701`
+- change priority by group `renice -n 5 -g wheel`
+- change priority by user `renice -n 5 -u johnny`
+
+####Start, stop and pause a process
+- suspend process to be continued later `kill (-SIGSTOP | -19) pid`
+- kill a process, cannot be caught `kill (-SIGKILL | -9) pid`
+- kill a process, can be gracefully caught `kill (-SIGTERM | -15 ) pid`
+- continue a process that was suspended `kill (-SIGCONT | -18) pid`
+
+####Start, stop and check statufs of network services
+- check status `systemctl status name.service`
+  - same format for service: start, stop, restart, reload, enable
+- enable service at boot `systemctl enable name.service`
+
+# objectives: 4_configure_local_storage
+
+####List, create, delete partions on MBR and GPT disks
+- `fdisk -l` - list all partitions
+- `fdisk /dev/vda` - create a new primary partition 
+- `[n]` - for new partition
+- `[p]` - primary
+- `(1-4)` - partition number
+- `<size/sector>` - choose appropriate sizing
+- `[t]` - filesystem type, `8e` for LVM, `82` for swap
+- `[w]` - save the partition changes
+- `partprobe` - force kernel to read updated partition table
+- `mkfs.ext4 /dev/vda1` - format the disk for ext4
+- `mkfs.xfs /dev/vda2` - format the disk for xfs
+- `mkfs.vfat /dev/vda3` - format the disk for vfat
+- `mkdir /mnt/{ext4,xfs,vfat}` - create mount points for each filesystem
+- `blkid /dev/vda[n]` - retrieve UUID for appropriate partition
+- update `/etc/fstab` with appopriate entry
+```
+#/etc/fstab
+UUID='...' /dev/vda1 /mnt/ext4 ext4 defaults 0 2
+UUID='...' /dev/vda2 /mnt/xfs xfs defaults 0 0
+UUID='...' /dev/vda3 /mnt/vfat vfat defaults 0 0
+```
+- `mount -a` mount all filesystems
+
+####Create and remove physical volumes, assign physical volumes to volume groups, and create and delete logical volumes
+- `lsblk -a` - display current block devices and configuration
+- `pvcreate /dev/vdb1` - create a physical volume
+- `vgcreate <vgname> -s 8m /dev/vdb1` - create volume group, set extant size (4m default, set to 8m)
+- `lvcreate -n <lvname> -L 25G <vgname>` - create logical volume, assign name and size
+- `mkfs.xfs /dev/<vgname>/<lvname>` - create filesystem (xfs) on logical volume
+- `mkdir /mnt/lvm` - create mountpoint
+- `blkid /dev/<vgname>/<lvname` - display UUID
+- `vi /etc/fstab` - update fstab
+
+```
+UUID="..." /mnt/lvm xfs defaults 0 0
+# or
+/dev/vg1/lv1 /mnt/lvm xfs defaults 0 0
+```
+
+####Add swap to a system non-destructively
+- `lvcreate -L 1G -n <lv_swapname> <vgname>` - create new logical volume for swap space 
+- `mkswap /dev/<vgname>/<lv_swapname` - create swap 
+- `swapon /dev/<vgname>/<lv_swapname` - activate swap
+- `swapon -s` - verify swap summary
+- `vi /etc/fstab` update fstab
+
+```
+/dev/vg/swap swap swap defaults 0 0
+```
+
+# objectives: 5_file_systems
+
+###Create, mount and unmount the following filesystems
+#####ext4, xfs & vfat
+- `lvcreate -L 100M -n <lv_name> /dev/<vgname>` - create new volume
+- `mkfs.<ext4|xfs|vfat> /dev/<vgname>/<lvname>` - create ext4 filesystem
+- `mount /dev/<vgname><lvname>` - manually mount the filesystem
+- `vi /etc/fstab` - update fstab for each filesystem
+
+```
+# /etc/fstab
+/dev/vg1/lv1 /mnt/ext4 ext4 defaults 1 2
+/dev/vg1/lv1 /mnt/xfs   xfs defaults 0 0
+/dev/vg1/lv1 /mnt/vfat vfat defaults 0 0
+```
+
+####Mount and unmount CIFS and NFS network file systems
+
+#####NFS
+- `yum install -y nfs-utils` - ensure required NFS services are installed
+- `systemctl enable rpcbind.service` - enable rpcbind
+- `systemctl start  rpcbind.service` - start rpcbind
+- `systemctl enable nfs-client.target` - enable nfs-client target
+- `systemctl start  nfs-client.target` - start nfs-client target
+- `vi /etc/fstab` - add fstab entry for nfs4
+
+```
+nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
+```
+- `mount -a` - automount fstab entries
+
+#####CIFS
+- `yum install -y cifs-utils samba-client` - ensure required CIFS services are installed
+- `systemctl enable smb.service` - enable samba
+- `systemctl enable nmb.service` - enable nmb
+- `systemctl enable winbind.service` - enable windbind
+- `vi /etc/fstab` - add fstab entry for CIFS
+
+```
+//smbserver/share /mnt/cifs cifs rw,username=user,password=pw 0 0
+```
+- `mount -a` - automount fstab entries
+
+#####Extend existing logical volumes
+- `lvcreate -L 100M -n <lvname> /dev/<vgname>` - create new volume if needed
+- `mkfs.ext4 /dev/<vgname>/<lvname>` - make an ext4 filesystem
+- `mount /dev/<vgname>/<lvname> /mnt/ext4` - mount it somewhere logical
+  - `lvextend -l +100%FREE -r /dev/<vgname>/<lvname>` allocate ALL free space
+  - `lvextend -L +50M -r /dev/<vgname>/<lvname>` allocate additional 50M or what have you
+
+#####Create and configure set-GID directories for collaboration
+- `groupadd -g 50000 <gname>` - create a new group
+- `mkdir /share` - create a shared directory in root
+- `chown nobody:<gname> /share` - change ownership of dir to *gname*
+- `chmod 2770 /share` - assign / set GID bit (SGID) to /share
+  - allows all members of group write privs, removes all for everyone else
+- `useradd -G <gname> <uname>` - create new users and assign them this group
+
+#####Create and manage ACLs
+- `getfacl <file>` - view file ACLs
+- `setfacl -Rm u:<username>:rwx <file>` - change file ACL to 7 for user
+  - `setfacl g:<groupname>:rwx <file>` - same but for group
+- `setfacl -x u:<username> <file>` - remove ACLs from file
+- `setfacl -b u:<username> <file>` - *completely* remove ACLs from file
+
+# objectives: 6_maintain_systems
+
+####Configure networking and hostname resolution statically or dynamically
+
+#####Networking
+- `nmcli con show` or `nmcli dev status` - display network config
+- `nmcli con del <interface|UUID>` - remove a connection / interface
+- `nmcli con add con-name <name> ifname <interface> type ethernet ip4 1.1.1.1/24 gw4 1.1.1.1` - create a connection (provide ip / gateway)
+- `nmcli con reload` - reload configs into network manager
+- `ip address show` or `ip a` - check configuration
+  - `nmcli con show <interface>` - all information about a connection
+- `nmcli con down <interface>` - stop a connection
+- `nmcli con up   <interface>` - start a connection
+- To modify a connection:
+  - `nmcli con mod <interface> ipv4.address 1.1.1.1/24` - ip address
+  - `nmcli con mod <interface> ipv4.gateway 1.1.1.1` - gateway
+  - `nmcli con reload` - reload configs into network manager
+  - `nmcli con up <interface>` - ensure connection is up
+
+#####Hostname
+- `hostnamectl <--static|--transient|--pretty>` - view all current hostnames (static, transient, pretty)
+- `hostnamectl set-hostname <name>` - set the hostname
+  - use `--static`, `--transient`, `--pretty` for individual hostnames
+- hostname resolution relies on `/etc/nsswitch.conf`
+  - `hosts: files dns` - entry resloves first through files (static) then dns (dynamic)
+    - *static* comes from `/etc/hosts` file
+    - *dynamic* comes from `/etc/resolve.conf` file
+- `nmcli con mod <interface> +ipv4.dns 1.1.1.1` - add DNS server
+  - `+ipv4.dns` adds a server
+  - `ipv4.dns` replaces it
+  - `-ipv4.dns` removes a server
+- `nmcli con up <interface>` - restart connection
+
+####Schedule taks using at and cron
+
+#####Cron Fields
+
+| Minute | Hour | Day Of Month | Month | Day Of Week | CMD             |
+|:------:|:----:|:------------:|:-----:|:-----------:|:---------------:|
+| 0-59   | 0-23 | 1-31         | 1-12  | 1-7         | /root/script.sh |
+
+- `crontab -u <username> -e` - edit users crontab
+- wildcards `*` can be used to match every value
+- cron jobs that neet to run routinely can be placed in `/etc/cron.{daily,weekly,monthly}`
+  - these must be executable
+
+####Configure a system to use time services
+
+#####Using NTP
+- `timedatectl` - get current config
+- `timedatectl list-timezones` - list available time zones
+- `timedatectl set-timezone <timezone>` - set the timezone eg: `America/Chicago`
+- `yum install -y ntp` - install ntp
+- `systemctl enable ntpd.service` - enable ntpd at boot
+- `systemctl start ntpd.service` - start ntpd
+  - config file is at `/etc/ntp.conf` 
+
+#####Using Chrony
+- `yum install -y chrony` - install chrony
+- `systemctl enable cronyd.service` - enable chronyd at boot
+- `systemctl start cronyd.service` - start chronyd
+- `ntpdate <timeserver>` - synchronize server
+  - config file is located at `/etc/chrony.conf`
+  
+####Install and update packages from Redhat network, remote repo or local file system
+- `vi /etc/yum.repos.d/<remote>.repo` - create new remote repo file, add following
+- TODO: get more details for this and practice practice! 
+```
+[base]
+name=RedHat-$relesever
+baseurl=http://mirror.centos.org/centos/$relesever/os/$basearch/
+gpgcheck=1
+gpgkey=/etc/pki/rpm-gpg/..
+enabled=1
+```
+
+# objectives: 7_manage_users_and_groups
+####Create, delete and modify local user accounts
+- `useradd <username>` - create a new user
+- `useradd -G <group> <username>` - add existing user to new group
+- `usermod -aG <supgroup> <username>` - add user to supplementary group 
+- `userdel -r <username>` - remove the user completely from the system
+
+####Change passwords and adjust password aging for local user accounts
+- `chage -M <max_days> <username>` - set the maximum password age
+- `chage -I <username>` - set the account / user to *inactive*
+- `chage -d 0 <username>` - force user to change password at next login
+- `date -d "+180 days"` - determine the date 180+ days from today
+- `vi /etc/login.defs` - update password policy configuration file
+
+####Create, delete and modify local groups and group memberships
+- `groupadd -r <groupname>` - create a new system group
+- `groupmod -n <newname> <groupname>` - rename existing group
+- `groupmod -g <groupid> <groupname>` - assign a GID to group
+- `groupdel <groupname>` - delete existing group
+
+####Configure a system to use an existing auth service for user/group info
+- using LDAP server: `server.example.com`
+
+#####LDAP Client Configuration
+- `yum install -y openldap-clients nss-pam-ldapd` - install LDAP tools
+- `authconfig-tui` - Text user interface wizard to setup LDAP
+  - Cache Information
+  - Use LDAP
+  - Use MD5
+  - Use Shadow
+  - Use LDAP Auth
+  - Local Auth
+  - In LDAP Settings:
+    - Use TLS: `ldap://server.example.com`, `dc=example,dc=com`
+- `/etc/openldap/cacerts` - lcoation of LDAP server cert
+- `yum install -y autofs nfs-utils` - ensure NFS/AUTOFS tools are installed
+- `vi /etc/auto.demo` - create *demo* automount
+  - `*-rw,sync --fstype=nfs4 instructor.example.com:/home/guests/` - add this line to `/etc/auto.demo`
+- TODO: read more on "Create a fine in /etc/auto.master.d named demo.master /home/guests /etc/auto.demo"
+- `systemctl start autofs.service` - start up autofs
+- `systemctl enable autofs.service` - enable it
+- `su <ldapuser>` - test the configuration
+
+#####Kerberos Configuration
+- `yum install authconfig-gtk krb5-workstation` - install Kerberos tools
+- `system-config-authentication` - run the CLI tool to connect to IPA
+  - ensure *Kerberos* is checked, and *DNS* is unchecked
+    - verify with `getent` and `ssh` (TODO: figure more out about this)
+- `yum install ipa-client` - ensure IPA tools are installed
+- `ipa-client-install --domain=server.example.com --no-ntp -mkhomdir` - connect to test IPA
+  - Enter AD credentials provided for adding Linux computers
+
+# objectives: 8_selinux
+####Diagnose and address routine SELinux policy violatios
+- `sestatus` - show status
+- `setenforce Enforcing (or 1)` - set SELinux to enforcing mode
+- `vi /etc/selinux/config` - config file to set perm state
+- `yum install -y settroubleshoot-server` - install SELinux troubleshooting tools
+- `sealert -a /var/log/audit/audit.log` - displays SELinux policy violations
+TODO: find more details
