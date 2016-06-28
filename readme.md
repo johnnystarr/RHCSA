@@ -358,6 +358,9 @@ enabled=1
   - Enter AD credentials provided for adding Linux computers
 
 # objectives: 8_selinux
+####Security
+- *Configure firewall settings using firewall-config, firewall-cmd, or iptables*
+
 ####Diagnose and address routine SELinux policy violatios
 - `sestatus` - show status
 - `setenforce Enforcing (or 1)` - set SELinux to enforcing mode
