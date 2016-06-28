@@ -358,8 +358,13 @@ enabled=1
   - Enter AD credentials provided for adding Linux computers
 
 # objectives: 8_selinux
-####Security
+####Firewalls
 - *Configure firewall settings using firewall-config, firewall-cmd, or iptables*
+- `firewall-cmd --list-all` - list configuration
+- `firewall-cmd --get-services` - list services 
+- `firewall-cmd --add-service=<service>` - enable service in default zone
+- `firewall-cmd --reload` - reload changes
+- `firewall-cmd --get-default-zone` - see context of default zone
 
 ####Diagnose and address routine SELinux policy violatios
 - `sestatus` - show status
