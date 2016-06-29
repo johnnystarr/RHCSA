@@ -24,9 +24,6 @@ def test(index,topics)
     tick = '`'
     code = step[/#{tick}(.*?)#{tick}/,1]
 
-    # remove github list modes
-    step.gsub!('- ','')
-
     if code 
       puts step.gsub(code, code.bright_green).gsub('`','')  
     else
@@ -35,9 +32,6 @@ def test(index,topics)
   end
 end
 
-test 4, topics
-test 5, topics
-test 6, topics
-test 7, topics
 test 8, topics
 test 9, topics
+test 10, topics

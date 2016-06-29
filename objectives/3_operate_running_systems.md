@@ -15,13 +15,13 @@
 - `renice -n 5 -u johnny` - change priority by user 
 
 ####Start, stop and pause a process
-- suspend process to be continued later `kill (-SIGSTOP | -19) pid`
-- kill a process, cannot be caught `kill (-SIGKILL | -9) pid`
-- kill a process, can be gracefully caught `kill (-SIGTERM | -15 ) pid`
-- continue a process that was suspended `kill (-SIGCONT | -18) pid`
+- `kill (-SIGSTOP | -19)  pid` - suspend process to be continued later 
+- `kill (-SIGKILL | -9)   pid` - kill a process, cannot be caught 
+- `kill (-SIGTERM | -15 ) pid` - kill a process, can be gracefully caught 
+- `kill (-SIGCONT | -18)  pid` - continue a process that was suspended 
 
 ####Start, stop and check statufs of network services
-- check status `systemctl status name.service`
+- `systemctl status name.service` - check status 
   - same format for service: start, stop, restart, reload, enable
-- enable service at boot `systemctl enable name.service`
+- `systemctl enable name.service` - enable service at boot 
 
