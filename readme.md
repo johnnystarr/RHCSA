@@ -357,8 +357,8 @@ enabled=1
 # objectives: 8_selinux
 ####Firewalls
 - *Configure firewall settings using firewall-config, firewall-cmd, or iptables*
-- `firewall-cmd --permanent <cmd>` - must add `--permanent` for changes to persist
-- `firewall-cmd --list-all` - list configuration
+- `firewall-cmd --permanent <cmd>`                     - must add `--permanent` for changes to persist
+- `firewall-cmd --list-all`                            - list configuration
 - `firewall-cmd --list-services --zone=<zone|default>` - list added services to default or specific zone
 - `firewall-cmd --get-services` - available services to enable 
 - `firewall-cmd --add-service=<service>` - enable service in default zone
