@@ -103,7 +103,7 @@ The following objective is to Recover / Reset the root password on a RHEL 7 syst
 ####Start, stop and pause a process
 - `kill (-SIGSTOP | -19)  pid` - suspend process to be continued later 
 - `kill (-SIGKILL | -9)   pid` - kill a process, cannot be caught 
-- `kill (-SIGTERM | -15 ) pid` - kill a process, can be gracefully caught 
+- `kill (-SIGTERM | -15)  pid` - kill a process, can be gracefully caught 
 - `kill (-SIGCONT | -18)  pid` - continue a process that was suspended 
 
 ####Start, stop and check statufs of network services
