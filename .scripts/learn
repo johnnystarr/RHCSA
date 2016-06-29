@@ -1,0 +1,52 @@
+#!/bin/bash
+
+category=$1
+subject=$2
+library=~/.learn/lib
+
+if [ $category == 'list' ]; then
+  echo 'Current Subjects:'
+  cd $library
+  find . -name '*.md' | sed 's/.md//g' | sed 's/.\// /g' | awk '{ print $1": "$2}'
+  exit
+fi
+
+if [ ! -e "$library/$category/$subject.md" ]; then
+  mkdir -p $library/$category
+  echo "# $category: $subject" >> $library/$category/$subject.md
+  vi $library/$category/$subject.md
+else
+  vi $library/$category/$subject.md
+fi
+
+# update git
+
+rm -f $library/readme.md
+echo "#RHCSA Training" >> $library/readme.md
+
+# objectives section
+echo -e "##Objectives" >> $library/readme.md
+for o in $(ls $library/objectives | sed 's/.md//g'); do echo "- [$(echo $o | sed 's/_/ /g')](./objectives/$o.md)" >> $library/readme.md; done
+
+# commands section
+echo -e "\n##Commands" >> $library/readme.md
+for c in $(ls $library/commands | sed 's/.md//g'); do echo "- [$c](./commands/$c.md)" >> $library/readme.md; done
+
+# packages section
+echo -e "\n##Packages" >> $library/readme.md
+for p in $(ls $library/packages | sed 's/.md//g'); do echo "- [$p](./packages/$p.md)" >> $library/readme.md; done
+
+# services section
+echo -e "\n##Services" >> $library/readme.md
+for s in $(ls $library/services | sed 's/.md//g'); do echo "- [$s](./services/$s.md)" >> $library/readme.md; done
+
+# compile objectives
+echo -e "\n##Course Objectives" >> $library/readme.md
+cat $library/objectives/*.md >> $library/readme.md
+
+cd $library
+git add -A
+git commit -m "updated subject: $subject"
+git pull
+git push -u origin master
+
