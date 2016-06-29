@@ -42,8 +42,8 @@ UUID="..." /mnt/lvm xfs defaults 0 0
 
 ####Add swap to a system non-destructively
 - `lvcreate -L 1G -n <lv_swapname> <vgname>` - create new logical volume for swap space 
-- `mkswap /dev/<vgname>/<lv_swapname`        - create swap 
-- `swapon /dev/<vgname>/<lv_swapname`        - activate swap
+- `mkswap /dev/<vgname>/<lv_swapname>`       - create swap 
+- `swapon /dev/<vgname>/<lv_swapname>`       - activate swap
 - `swapon -s`                                - verify swap summary
 - `vi /etc/fstab`                            - update fstab
 - `/dev/vg/swap swap swap defaults 0 0`      - entry 
