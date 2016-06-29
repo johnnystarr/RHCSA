@@ -19,7 +19,6 @@ end
 def test(index,topics)
   topic = topics.keys[index]
   steps = topics.values[index]
-  puts "[#{index}] - #{topic}".yellow
   steps.each do |step|
     tick = '`'
     code = step[/#{tick}(.*?)#{tick}/,1]
@@ -32,9 +31,16 @@ def test(index,topics)
   end
 end
 
-test 8, topics
-test 9, topics
-test 10, topics
-test 11, topics
-test 12, topics
-test 13, topics
+# main entry point of the test
+
+topic = ARGV.first
+topic ||= 0
+
+while true
+  header = topics.keys[topic]
+  puts "[#{topic}] - #{header}".yellow
+  puts "[press any key]".red
+  gets()
+  test(topic, topics)  
+  exit
+end
