@@ -21,11 +21,13 @@ def test(index,topics)
   steps = topics.values[index]
   puts "[#{index}] - #{topic}".green
   steps.each do |step|
-    bcode = '`'
-    ecode = '` '
-
-    puts step[/bcode(.*?)ecode/,1]
-  
+    tick = '`'
+    code = step[/#{tick}(.*?)#{tick}/,1]
+    if code 
+      puts step.gsub(code, code.cyan).gsub('`','')  
+    else
+      puts step
+    end
   end
 end
 
