@@ -3,7 +3,9 @@
 require 'term/ansicolor'
 include Term::ANSIColor
 
-readme        = File.read('../readme.md').split(/\n/)
+mainpath      = '/Users/jonathan.starr/.learn/lib'
+
+readme        = File.read("#{mainpath}/readme.md").split(/\n/)
 topics        = {}
 current_topic = ''
 
