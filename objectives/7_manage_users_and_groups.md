@@ -35,7 +35,7 @@
 - `/etc/openldap/cacerts` - lcoation of LDAP server cert
 - `yum install -y autofs nfs-utils` - ensure NFS/AUTOFS tools are installed
 - `vi /etc/auto.demo` - create *demo* automount
-  - `*-rw,sync --fstype=nfs4 instructor.example.com:/home/guests/` - add this line to `/etc/auto.demo`
+  - `*-rw,sync --fstype=nfs4 instructor.example.com:/home/guests/&` - add this line to `/etc/auto.demo`
 - TODO: read more on "Create a fine in /etc/auto.master.d named demo.master /home/guests /etc/auto.demo"
 - `systemctl start autofs.service` - start up autofs
 - `systemctl enable autofs.service` - enable it
