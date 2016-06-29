@@ -17,7 +17,6 @@ readme.each do |line|
 end
 
 def test(index,topics)
-  topic = topics.keys[index]
   steps = topics.values[index]
   steps.each do |step|
     tick = '`'
@@ -42,9 +41,9 @@ while true
   puts "[#{topic}] - #{header}".yellow
   puts ''
   puts "[press any key]".red
-  gets()
+  $stdin.gets()
   test(topic, topics)  
   puts "[next topic]".red
-  gets()
+  $stdin.gets()
   topic += 1
 end
