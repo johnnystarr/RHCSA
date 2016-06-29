@@ -63,26 +63,20 @@ The following objective is to Recover / Reset the root password on a RHEL 7 syst
 | bzip2      | `bzip2 file`                 | `bunzip file.bz2`         |
 
 ###List, set and change standard ugo/rwx permissions
-####Create a test directory with 3 files
-`mkdir test && touch test/{file1,file2,file3}`
-####Listing
-`ls -l test/`
-####Changing Ownership
-- Recursively change owner & group
-- `chown -R nobody:wheel test/`
+####Create a test directory with 3 files, list, change ownership
+- `mkdir test && touch test/{file1,file2,file3}` - create some directories
+- `ls -l test/`                                  - list in long mode
+- `chown -R nobody:wheel test/`                  - recursively change owner & group
 
-####Changing Modes
-- Change mode to 0755 octal way
-- `chmod 0755 test/file1`
-- Change mode to 0755 ugo way
-- `chmod u=rwx,g=rx,o=rx test/file{2,3}`
-- List changes to verify
-- `ls -l test/`
+####Changing Modes (octal & ugo)
+- `chmod 0755 test/file1`                - change mode to 0755 octal way
+- `chmod u=rwx,g=rx,o=rx test/file{2,3}` - change mode to 0755 ugo way
+- `ls -l test/`                          - list changes to verify
 
-####Special Perms
-- `chmod 1750 test/file1` (Sticky Bit)
-- `chmod 2750 test/file2` (Set GID)
-- `chmod 4750 test/file3` (Set UID)
+####Set Special Permissions (files / directories)
+- `chmod 1750 test/file1` - Sticky Bit
+- `chmod 2750 test/file2` - Set GID
+- `chmod 4750 test/file3` - Set UID
 
 # objectives: 3_operate_running_systems
 
