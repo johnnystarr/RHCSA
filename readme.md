@@ -253,7 +253,7 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
   - `-ipv4.dns` - removes a server
 - `nmcli con up <interface>` - restart connection
 
-####Schedule taks using at and cron
+####Schedule tasks using at and cron
 
 #####Cron Fields
 
@@ -268,7 +268,7 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
 
 ####Configure a system to use time services
 
-#####Using NTP
+#####Configure time services using NTP
 - `timedatectl`                         - get current config
 - `timedatectl list-timezones`          - list available time zones
 - `timedatectl set-timezone <timezone>` - set the timezone eg: `America/Chicago`
@@ -277,7 +277,7 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
 - `systemctl start ntpd.service`        - start ntpd
   - config file is at `/etc/ntp.conf` 
 
-#####Using Chrony
+#####Configure time services using Chrony
 - `yum install -y chrony`           - install chrony
 - `systemctl enable cronyd.service` - enable chronyd at boot
 - `systemctl start cronyd.service`  - start chronyd

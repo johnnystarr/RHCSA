@@ -23,7 +23,7 @@ def test(index,topics)
     code = step[/#{tick}(.*?)#{tick}/,1]
 
     if code 
-      puts step.gsub(code, code.bright_green).gsub('`','')  
+      puts step.gsub(code, code.bright_green).gsub('`',' ')  
     else
       puts step
     end
