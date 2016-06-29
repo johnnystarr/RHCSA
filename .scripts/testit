@@ -1,13 +1,17 @@
 #!/usr/bin/env ruby
 
 require 'term/ansicolor'
+require 'json'
+
 include Term::ANSIColor
 
-mainpath      = '/Users/jonathan.starr/.learn/lib'
+mainpath       = '/Users/jonathan.starr/.learn/lib'
+readme         = File.read("#{mainpath}/readme.md").split(/\n/)
+topics         = {}
+current_topic  = ''
 
-readme        = File.read("#{mainpath}/readme.md").split(/\n/)
-topics        = {}
-current_topic = ''
+$manifest_file = "#{mainpath}/.scripts/manifest.json"
+$manifest      = JSON.parse(File.read($manifest_file))
 
 readme.each do |line|
   if line.include? '###'
@@ -30,6 +34,21 @@ def test(index,topics)
       puts step
     end
   end
+
+  $manifest[index] ||= {
+    comments: [],
+    comfort: 0
+  }
+end
+
+def shutdown
+  File.write($manifest_file, JSON.generate($manifest))
+  puts 'closing'
+  exit
+end
+
+def add_comment
+
 end
 
 # main entry point of the test
@@ -45,7 +64,21 @@ while true
   puts "[press any key]".red
   $stdin.gets()
   test(topic, topics)  
-  puts "[next topic]".red
-  $stdin.gets()
+  puts '-'*80
+  puts "[comment] add a comment".yellow
+  puts "[comfort] choose a comfort level (1-10)".cyan
+  puts "[quit] next topic".red
+  puts "[enter] next topic".green
+  command = $stdin.gets().chop
   topic += 1
+
+  # parse options
+  case command
+  when 'quit'
+    shutdown
+  when 'comment'
+    add_comment
+  end
+
 end
+
