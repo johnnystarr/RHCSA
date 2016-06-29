@@ -33,14 +33,17 @@ end
 
 # main entry point of the test
 
-topic = ARGV.first
+topic = ARGV.first.to_i
 topic ||= 0
 
 while true
+  system 'clear'
   header = topics.keys[topic]
   puts "[#{topic}] - #{header}".yellow
   puts "[press any key]".red
   gets()
   test(topic, topics)  
-  exit
+  puts "[next topic]".red
+  gets()
+  topic += 1
 end
