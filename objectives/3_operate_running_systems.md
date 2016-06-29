@@ -1,11 +1,11 @@
 # objectives: 3_operate_running_systems
 
 ###Boot systems into different targets manually
-- view full list of targets `systemctl list-units --type=target --all`
-- get default run-level `systemctl get-default`
-- change to multi-user (RL 3) `systemctl multi-user.target`
-- switch to graphical  (RL 5) `systemctl isolate graphical.target`
-- set default to graphical `systemctl set-default graphical.target`
+- `systemctl list-units --type=target --all` - view full list of targets 
+- `systemctl get-default` - get default run-level 
+- `systemctl multi-user.target` - change to multi-user (RL 3) 
+- `systemctl isolate graphical.target` - switch to graphical  (RL 5) 
+- `systemctl set-default graphical.target` - set default to graphical 
 
 ###Identify CPU/memory intensive processes, adjust with renice & kill
 ####Renice
