@@ -19,12 +19,16 @@ end
 def test(index,topics)
   topic = topics.keys[index]
   steps = topics.values[index]
-  puts "[#{index}] - #{topic}".green
+  puts "[#{index}] - #{topic}".yellow
   steps.each do |step|
     tick = '`'
-    code = step[/#{tick}(.*?)#{tick}/,1].gray
+    code = step[/#{tick}(.*?)#{tick}/,1]
+
+    # remove github list modes
+    step.gsub!('- ','')
+
     if code 
-      puts step.gsub(code, code.white).gsub('`','')  
+      puts step.gsub(code, code.bright_green).gsub('`','')  
     else
       puts step
     end
