@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'term/ansicolor'
+include Term::ANSIColor
+
+readme        = File.read('../readme.md').split(/\n/)
+topics        = {}
+current_topic = ''
+
+readme.each do |line|
+  if line.include? '###'
+    current_topic = line.gsub('#','')    
+    topics[current_topic] = []
+  else
+    topics[current_topic] << line if topics[current_topic] unless line.include? 'objective'
+  end
+end
+
+def test(index,topics)
+  topic = topics.keys[index]
+  steps = topics.values[index]
+  puts "[#{index}] - #{topic}".green
+  steps.each do |step|
+    bcode = '`'
+    ecode = '` '
+
+    puts step[/bcode(.*?)ecode/,1]
+  
+  end
+end
+
+test 4, topics
+test 5, topics
+test 6, topics
+test 7, topics
+test 8, topics
+test 9, topics
