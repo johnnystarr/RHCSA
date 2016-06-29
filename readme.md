@@ -100,7 +100,7 @@ The following objective is to Recover / Reset the root password on a RHEL 7 syst
 - `kill (-SIGTERM | -15)  pid` - kill a process, can be gracefully caught 
 - `kill (-SIGCONT | -18)  pid` - continue a process that was suspended 
 
-####Start, stop and check statufs of network services
+####Start, stop and check status of network services
 - `systemctl status name.service` - check status 
   - same format for service: start, stop, restart, reload, enable
 - `systemctl enable name.service` - enable service at boot 

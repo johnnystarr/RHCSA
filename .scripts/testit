@@ -40,6 +40,7 @@ while true
   system 'clear'
   header = topics.keys[topic]
   puts "[#{topic}] - #{header}".yellow
+  puts ''
   puts "[press any key]".red
   gets()
   test(topic, topics)  
