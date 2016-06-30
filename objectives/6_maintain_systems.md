@@ -1,8 +1,7 @@
 # objectives: 6_maintain_systems
 
-####Configure networking and hostname resolution statically or dynamically
+####Configure networking, update interfaces
 
-#####Networking
 - `nmcli con show` or `nmcli dev status` - display network config
 - `nmcli con del <interface|UUID>`       - remove a connection / interface
 - `nmcli con add con-name <name> ifname <interface> type ethernet ip4 1.1.1.1/24 gw4 1.1.1.1` - create a connection (provide ip / gateway)
@@ -17,7 +16,7 @@
   - `nmcli con reload`                                  - reload configs into network manager
   - `nmcli con up <interface>`                          - ensure connection is up
 
-#####Hostname
+#####Hostname updates: statically or dynamically
 - `hostnamectl <--static|--transient|--pretty>` - view all current hostnames (static, transient, pretty)
 - `hostnamectl set-hostname <name>`             - set the hostname
   - use `--static`, `--transient`, `--pretty` for individual hostnames
@@ -33,8 +32,6 @@
 
 ####Schedule tasks using at and cron
 
-#####Cron Fields
-
 | Minute | Hour | Day Of Month | Month | Day Of Week | CMD             |
 |:------:|:----:|:------------:|:-----:|:-----------:|:---------------:|
 | 0-59   | 0-23 | 1-31         | 1-12  | 1-7         | /root/script.sh |
@@ -43,8 +40,6 @@
 - wildcards `*` can be used to match every value
 - cron jobs that neet to run routinely can be placed in `/etc/cron.{daily,weekly,monthly}`
   - these must be executable
-
-####Configure a system to use time services
 
 #####Configure time services using NTP
 - `timedatectl`                         - get current config
