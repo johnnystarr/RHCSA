@@ -61,5 +61,19 @@
     ],
     "comfort": "7",
     "practiced": 1
+  },
+  "9": {
+    "comments": [
+      "2016-06-30 14:05:49 - this is just simple segment"
+    ],
+    "comfort": "9",
+    "practiced": 1
+  },
+  "10": {
+    "comments": [
+      "2016-06-30 14:12:49 - don't forget about partprobe after creating the partitions!"
+    ],
+    "comfort": "7",
+    "practiced": 1
   }
 }
