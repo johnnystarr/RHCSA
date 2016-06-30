@@ -10,7 +10,6 @@
 | gzip       | `gzip file`                  | `gunzip file.gz`          |
 | bzip2      | `bzip2 file`                 | `bunzip file.bz2`         |
 
-###List, set and change standard ugo/rwx permissions
 ####Create a test directory with 3 files, list, change ownership
 - `mkdir test && touch test/{file1,file2,file3}` - create some directories
 - `ls -l test/`                                  - list in long mode
