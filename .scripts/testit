@@ -2,6 +2,7 @@
 
 require 'term/ansicolor'
 require 'json'
+require 'pry'
 
 include Term::ANSIColor
 
@@ -14,7 +15,7 @@ $manifest_file = "#{mainpath}/.scripts/manifest.json"
 $manifest      = JSON.parse(File.read($manifest_file))
 
 readme.each do |line|
-  if line.include? '###'
+  if line.include? '##'
     current_topic = line.gsub('#','')    
     topics[current_topic] = []
   else
@@ -35,20 +36,47 @@ def test(index,topics)
     end
   end
 
-  $manifest[index] ||= {
-    comments: [],
-    comfort: 0
+  
+  $manifest[index.to_s] ||= {
+    'comments'  => [],
+    'comfort'   =>  0,
+    'practiced' =>  0
   }
+
+  $manifest[index.to_s]['practiced'] += 1
+
+  puts "times practiced: #{$manifest[index.to_s]['practiced']}".blue
+  puts ''
+  puts "comfort level: #{$manifest[index.to_s]['comfort']}".magenta
+  puts ''
+
+  $manifest[index.to_s]['comments'].each do |comment|
+    puts "comment: ".cyan
+    puts comment
+    $stdin.gets()
+  end
 end
 
 def shutdown
-  File.write($manifest_file, JSON.generate($manifest))
+  File.write($manifest_file, JSON.pretty_generate($manifest))
   puts 'closing'
   exit
 end
 
-def add_comment
+def add_comment(index)
+  print "enter your comment> "
+  comment = "#{Time.now.to_s[0..-7]} - "
+  comment << $stdin.gets().chop
+  $manifest[index.to_s]['comments'] << comment
+  puts 'comment added.'
+end
 
+def set_comfort(index)
+  puts 'What is your comfort level with this topic form 1 - 10?'
+  print '>'
+  comfort = $stdin.gets().chop
+  $manifest[index]['comfort'] = comfort
+  puts "comfort now set to: #{comfort}"
 end
 
 # main entry point of the test
@@ -60,25 +88,34 @@ while true
   system 'clear'
   header = topics.keys[topic]
   puts "[#{topic}] - #{header}".yellow
-  puts ''
   puts "[press any key]".red
   $stdin.gets()
   test(topic, topics)  
-  puts '-'*80
-  puts "[comment] add a comment".yellow
-  puts "[comfort] choose a comfort level (1-10)".cyan
-  puts "[quit] next topic".red
-  puts "[enter] next topic".green
-  command = $stdin.gets().chop
-  topic += 1
 
-  # parse options
-  case command
-  when 'quit'
-    shutdown
-  when 'comment'
-    add_comment
+  while true
+    puts ('-'*80).cyan
+    puts "[ comment ] add a comment"
+    puts "[ comfort ] choose a comfort"
+    puts "[ quit    ] outta here"
+    puts "[ enter   ] next topic"
+    puts ('-'*80).cyan
+    print ">"
+    command = $stdin.gets().chop
+
+    # parse options
+    case command
+    when 'quit'
+      shutdown
+    when 'comment'
+      add_comment(topic.to_s)
+    when 'comfort'
+      set_comfort(topic.to_s)
+    when ''
+      break
+    end
   end
+
+  topic += 1
 
 end
 

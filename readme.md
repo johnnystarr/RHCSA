@@ -35,7 +35,7 @@
 
 The following objective is to Recover / Reset the root password on a RHEL 7 system.
 
-##Process
+###Rescue Process (lost root password)
 - start or reboot the system
 - at the grub menu, press the [ESC] key to interrupt the boot proc
 - press 'e' to edit the boot record
