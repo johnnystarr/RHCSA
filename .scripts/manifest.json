@@ -1,1 +1,29 @@
-{}
+{
+  "0": {
+    "comments": [
+
+    ],
+    "comfort": "9",
+    "practiced": 1
+  },
+  "1": {
+    "comments": [
+      "2016-06-30 13:27:36 - be sure to run first: sudo yum install -y star"
+    ],
+    "comfort": "5",
+    "practiced": 1
+  },
+  "2": {
+    "comments": [
+      "2016-06-30 13:29:22 - must be root to assign nobody? (assess why)"
+    ],
+    "comfort": "7",
+    "practiced": 1
+  },
+  "3": {
+    "comments": [
+    ],
+    "comfort": "9",
+    "practiced": 1
+  }
+}

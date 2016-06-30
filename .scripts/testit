@@ -120,6 +120,13 @@ end
 topic = ARGV.first.to_i
 topic ||= 0
 
+# before our main loop, go over any command line options first
+case ARGV.first
+when 'list'
+  summary
+  exit
+end
+
 while true
   system 'clear'
   header = $topics.keys[topic]
