@@ -75,5 +75,82 @@
     ],
     "comfort": "7",
     "practiced": 1
+  },
+  "11": {
+    "comments": [
+
+    ],
+    "comfort": 7,
+    "practiced": 1
+  },
+  "12": {
+    "comments": [
+      "2016-06-30 14:25:18 - takes a reboot for fstab to mount swap, so use swapon "
+    ],
+    "comfort": "8",
+    "practiced": 1
+  },
+  "13": {
+    "comments": [
+      "2016-06-30 14:25:53 - done this lots!  just don't forget ext4 uses (1 2)"
+    ],
+    "comfort": "8",
+    "practiced": 1
+  },
+  "14": {
+    "comments": [
+      "2016-06-30 14:28:06 - remember, its nfs-client.target! not .service!"
+    ],
+    "comfort": "7",
+    "practiced": 1
+  },
+  "15": {
+    "comments": [
+      "2016-06-30 14:39:44 - figure out why access is denied for these guys"
+    ],
+    "comfort": "3",
+    "practiced": 1
+  },
+  "16": {
+    "comments": [
+      "2016-06-30 14:43:29 - good job, just remember -r for resize auto"
+    ],
+    "comfort": "7",
+    "practiced": 1
+  },
+  "17": {
+    "comments": [
+      "2016-06-30 14:55:49 - make sure 2770 is actually setting GID"
+    ],
+    "comfort": "6",
+    "practiced": 1
+  },
+  "18": {
+    "comments": [
+      "2016-06-30 14:57:12 - ACLs are easy!"
+    ],
+    "comfort": "8",
+    "practiced": 1
+  },
+  "20": {
+    "comments": [
+      "2016-06-30 16:03:35 - should be good here, just study up on resolve.conf and nsswitch.conf"
+    ],
+    "comfort": "7",
+    "practiced": 1
+  },
+  "21": {
+    "comments": [
+      "2016-06-30 16:01:38 - please go over all 6 fields; memorize them!"
+    ],
+    "comfort": 0,
+    "practiced": 1
+  },
+  "19": {
+    "comments": [
+      "2016-06-30 16:02:45 - pretty comfy with this, just make sure you test ip changes"
+    ],
+    "comfort": "8",
+    "practiced": 1
   }
 }
