@@ -8,8 +8,9 @@
 - `systemctl set-default graphical.target`   - set default to graphical 
 
 ###Identify CPU/memory intensive processes, adjust with renice & kill
-####Renice
 `renice [-n] priority [-g|-p|-u] identifiers (group, pid, user)`
+
+####Renice
 - `renice -n 5 -p 1701`   - change priority to proc 
 - `renice -n 5 -g wheel`  - change priority by group 
 - `renice -n 5 -u johnny` - change priority by user 
