@@ -8,7 +8,8 @@
   - only 1 connection can be up at a time
 - `nmcli con show` or `nmcli dev status` - display network connections or devices
 - `nmcli con del <name|UUID>`       - remove a connection / interface
-- `nmcli con add con-name <name> ifname <interface> type ethernet ip4 1.1.1.1/24 gw4 1.1.1.1` - create a connection (provide ip / gateway)
+- `nmcli con add con-name <name> ifname <interface> type ethernet ip4 1.1.1.1/24 gw4 1.1.1.1` 
+  - create a connection (provide ip / gateway)
 - `nmcli con reload` - reload configs into network manager
 - `ip address show` or `ip a`       - check configuration
   - `nmcli con show <name>`         - all information about a connection
