@@ -1,20 +1,25 @@
 # objectives: 6_maintain_systems
 
-####Configure networking, update interfaces
+####Configure networking, update connections / devices
 
-- `nmcli con show` or `nmcli dev status` - display network config
-- `nmcli con del <interface|UUID>`       - remove a connection / interface
+- Devices and connections are two distinct things
+  - devices are actual interfaces on the system
+  - connections can be bound & be turned on/off 
+  - only 1 connection can be up at a time
+- `nmcli con show` or `nmcli dev status` - display network connections or devices
+- `nmcli con del <name|UUID>`       - remove a connection / interface
 - `nmcli con add con-name <name> ifname <interface> type ethernet ip4 1.1.1.1/24 gw4 1.1.1.1` - create a connection (provide ip / gateway)
 - `nmcli con reload` - reload configs into network manager
-- `ip address show` or `ip a`            - check configuration
-  - `nmcli con show <interface>`         - all information about a connection
-- `nmcli con down <interface>`           - stop a connection
-- `nmcli con up   <interface>`           - start a connection
+- `ip address show` or `ip a`       - check configuration
+  - `nmcli con show <name>`         - all information about a connection
+- `nmcli con down <name>`           - stop a connection
+- `nmcli con up   <name>`           - start a connection
 - To modify a connection:
-  - `nmcli con mod <interface> ipv4.address 1.1.1.1/24` - ip address
-  - `nmcli con mod <interface> ipv4.gateway 1.1.1.1`    - gateway
-  - `nmcli con reload`                                  - reload configs into network manager
-  - `nmcli con up <interface>`                          - ensure connection is up
+  - `nmcli con mod <name> ipv4.address 1.1.1.1/24` - ip address
+  - `nmcli con mod <name> ipv4.gateway 1.1.1.1`    - gateway
+  - `nmcli con reload`                             - reload configs into network manager
+  - `nmcli con up <name>`                          - ensure connection is up
+  - `nmcli con delete <name>`                      - delete the connection when through
 
 #####Hostname updates: statically or dynamically
 - `hostnamectl <--static|--transient|--pretty>` - view all current hostnames (static, transient, pretty)
