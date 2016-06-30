@@ -57,9 +57,13 @@ def test(index,topics)
   end
 end
 
+def summary
+  puts 'closing'
+end
+
 def shutdown
   File.write($manifest_file, JSON.pretty_generate($manifest))
-  puts 'closing'
+  summary
   exit
 end
 
