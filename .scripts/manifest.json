@@ -40,5 +40,26 @@
     ],
     "comfort": "4",
     "practiced": 1
+  },
+  "6": {
+    "comments": [
+      "2016-06-30 13:51:10 - be sure to open a second screen / terminal / tab"
+    ],
+    "comfort": "7",
+    "practiced": 1
+  },
+  "7": {
+    "comments": [
+      "2016-06-30 13:52:47 - be sure to always test group and users in addition to pids"
+    ],
+    "comfort": "7",
+    "practiced": 1
+  },
+  "8": {
+    "comments": [
+      "2016-06-30 13:58:03 - you may use `kill -l` to see signals"
+    ],
+    "comfort": "7",
+    "practiced": 1
   }
 }
