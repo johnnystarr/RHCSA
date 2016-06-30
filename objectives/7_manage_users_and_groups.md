@@ -46,6 +46,7 @@
 - `system-config-authentication`                - run the CLI tool to connect to IPA
   - ensure *Kerberos* is checked, and *DNS* is unchecked
     - verify with `getent` and `ssh` (TODO: figure more out about this)
+- ![kerberos](../.images/kerberos.png)
 - `yum install ipa-client`                      - ensure IPA tools are installed
 - `ipa-client-install --domain=server.example.com --no-ntp --mkhomdir` - connect to test IPA
   - Enter AD credentials provided for adding Linux computers
