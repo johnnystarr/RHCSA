@@ -349,7 +349,7 @@ enabled=1
   - Enter AD credentials provided for adding Linux computers
 
 # objectives: 8_selinux
-####Firewalls
+####Firewall Management (firewall-cmd, firewalld, iptables)
 - *Configure firewall settings using firewall-config, firewall-cmd, or iptables*
 - `firewall-cmd --permanent <cmd>`                     - must add `--permanent` for changes to persist
 - `firewall-cmd --list-all`                            - list configuration
