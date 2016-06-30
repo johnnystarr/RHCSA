@@ -13,6 +13,10 @@
 - `sestatus`                              - show status
 - `setenforce Enforcing (or 1)`           - set SELinux to enforcing mode
 - `vi /etc/selinux/config`                - config file to set perm state
+- `chcon -t <type_t> <file>`              - test changing type label context
+- `ausearch -m avc`                       - audit failures and review
+- `restorecon <file>`                     - restore contexts: `/etc/selinux/targeted/contexts/files/`
+- `semanage fcontext -l`                  - view all file contexts (grep if needbe)
 - `yum install -y settroubleshoot-server` - install SELinux troubleshooting tools
 - `sealert -a /var/log/audit/audit.log`   - displays SELinux policy violations
-TODO: find more details
+
