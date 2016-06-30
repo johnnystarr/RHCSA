@@ -1,7 +1,5 @@
 # objectives: 2_essential_tools
 
-##Understand and use essential tools
-
 ###Archive, compress, unpack and uncompress files:
 
 |  Tool      |   Archive                    |  Extract                  |
