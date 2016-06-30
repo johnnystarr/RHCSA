@@ -15,7 +15,7 @@ $manifest_file = "#{mainpath}/.scripts/manifest.json"
 $manifest      = JSON.parse(File.read($manifest_file))
 
 readme.each do |line|
-  if line.include? '##'
+  if line.include? '###'
     current_topic = line.gsub('#','')    
     topics[current_topic] = []
   else
