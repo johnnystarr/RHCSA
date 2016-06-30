@@ -1,7 +1,6 @@
 # objectives: 5_file_systems
 
-###Create, mount and unmount the following filesystems
-#####ext4, xfs & vfat
+###Create, mount and unmount filesystems (ext4, xfs, vfat)
 - `lvcreate -L 100M -n <lv_name> /dev/<vgname>` - create new volume
 - `mkfs.<ext4|xfs|vfat> /dev/<vgname>/<lvname>` - create ext4 filesystem
 - `mount /dev/<vgname><lvname>`                 - manually mount the filesystem
@@ -14,9 +13,7 @@
 /dev/vg1/lv1 /mnt/vfat vfat defaults 0 0
 ```
 
-####Mount and unmount CIFS and NFS network file systems
-
-#####NFS
+#####Mount and unmount file systems (NFS)
 - `yum install -y nfs-utils`           - ensure required NFS services are installed
 - `systemctl enable rpcbind.service`   - enable rpcbind
 - `systemctl start  rpcbind.service`   - start rpcbind
@@ -29,7 +26,7 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
 ```
 - `mount -a` - automount fstab entries
 
-#####CIFS
+#####Mount and unmount file systems (CIFS)
 - `yum install -y cifs-utils samba-client` - ensure required CIFS services are installed
 - `systemctl enable smb.service`           - enable samba
 - `systemctl enable nmb.service`           - enable nmb
