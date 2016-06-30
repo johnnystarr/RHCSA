@@ -69,7 +69,7 @@ end
 def summary
   puts "thanks for using learnit v#{VERSION}"
   puts ('-'*80).cyan
-  puts "topic                                                   comfort      practiced"
+  puts "       topic                                            comfort      practiced"
   $topics.each_with_index do |(k,v),i|
     comfort   = $manifest[i.to_s]['comfort'] if $manifest[i.to_s]
     practiced = $manifest[i.to_s]['practiced'] if $manifest[i.to_s]
