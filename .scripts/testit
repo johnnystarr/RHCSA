@@ -83,11 +83,13 @@ def summary
       comfort = "#{comfort.red}"
     when 4..6
       comfort = "#{comfort.yellow}"
-    when 7..10,11..100
+    when 7..9
+      comfort = "#{comfort.cyan}"
+    when 10..1000
       comfort = "#{comfort.green}"  
     end
 
-    puts "[#{i}] - #{k.truncate(40).ljust(50,' ')}    #{comfort}             #{practiced.to_s.magenta}"
+    puts "[".dark.white << "#{i}".white << "] -".dark.white << " #{k.truncate(40).ljust(50,' ').dark.green} #{comfort}            #{practiced.to_s.magenta}"
   end
 end
 
