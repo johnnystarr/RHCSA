@@ -15,6 +15,7 @@
 - `setenforce Enforcing (or 1)`           - set SELinux to enforcing mode
 - `vi /etc/selinux/config`                - config file to set perm state
 - `chcon -t <type_t> <file>`              - test changing type label context
+- `setsebool -P <boolean> 1|0`            - turn an SELinux boolean on or off
 - `ausearch -m avc`                       - audit failures and review
 - `grep AVC /var/log/audit/audit.log`     - secondary way to get errors
 - `audit2allow -wa`                       - generate steps to make the AVC failure allowed
