@@ -356,6 +356,7 @@ enabled=1
 - `firewall-cmd --list-services --zone=<zone|default>` - list added services to default or specific zone
 - `firewall-cmd --get-services`                        - available services to enable 
 - `firewall-cmd --add-service=<service>`               - enable service in default zone
+- `firewall-cmd --add-port=<port/protocol>`            - add a port if not defined
 - `firewall-cmd --reload`                              - reload changes
 - `firewall-cmd --get-default-zone`                    - see context of default zone
 
