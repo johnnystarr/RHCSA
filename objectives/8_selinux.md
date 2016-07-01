@@ -16,6 +16,8 @@
 - `vi /etc/selinux/config`                - config file to set perm state
 - `chcon -t <type_t> <file>`              - test changing type label context
 - `ausearch -m avc`                       - audit failures and review
+- `grep AVC /var/log/audit/audit.log`     - secondary way to get errors
+- `audit2allow -wa`                       - generate steps to make the AVC failure allowed
 - `restorecon <file>`                     - restore contexts: `/etc/selinux/targeted/contexts/files/`
 - `semanage fcontext -l`                  - view all file contexts (grep if needbe)
 - `yum install -y settroubleshoot-server` - install SELinux troubleshooting tools
