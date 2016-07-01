@@ -18,6 +18,7 @@
 - `ausearch -m avc`                       - audit failures and review
 - `grep AVC /var/log/audit/audit.log`     - secondary way to get errors
 - `audit2allow -wa`                       - generate steps to make the AVC failure allowed
+- `audit2allow -aM <name>.local`          - create a new module/policy package
 - `restorecon <file>`                     - restore contexts: `/etc/selinux/targeted/contexts/files/`
 - `semanage fcontext -l`                  - view all file contexts (grep if needbe)
 - `yum install -y settroubleshoot-server` - install SELinux troubleshooting tools
