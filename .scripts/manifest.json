@@ -152,5 +152,12 @@
     ],
     "comfort": "8",
     "practiced": 1
+  },
+  "29": {
+    "comments": [
+      "2016-07-02 13:20:23 - not 100% sure about SSL cert: is it provided?"
+    ],
+    "comfort": "6",
+    "practiced": 1
   }
 }
