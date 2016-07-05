@@ -285,15 +285,15 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
   - config file is located at `/etc/chrony.conf`
   
 ####Install and update packages from Redhat network, remote repo or local file system
-- `vi /etc/yum.repos.d/<remote>.repo` - create new remote repo file, add following
-- TODO: get more details for this and practice practice! 
+- `yum-config-manager --add-repo=http://myrepo.com` - leverage this tool to generate repo file 
+- `vi /etc/yum.repos.d/<remote>.repo`    - modify the repository to 
 ```
 [base]
-name=RedHat-$relesever
-baseurl=http://mirror.centos.org/centos/$relesever/os/$basearch/
-gpgcheck=1
-gpgkey=/etc/pki/rpm-gpg/..
-enabled=1
+[myrepo.com]
+name=added from http://myrepo.com
+baseurl=http://myrepo.com
+enaabled=1
+gpgcheck=0
 ```
 
 # objectives: 7_manage_users_and_groups
