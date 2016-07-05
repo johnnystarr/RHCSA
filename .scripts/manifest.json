@@ -11,7 +11,7 @@
       "2016-06-30 13:27:36 - be sure to run first: sudo yum install -y star"
     ],
     "comfort": "5",
-    "practiced": 1
+    "practiced": 2
   },
   "2": {
     "comments": [
@@ -158,6 +158,20 @@
       "2016-07-02 13:20:23 - not 100% sure about SSL cert: is it provided?"
     ],
     "comfort": "6",
+    "practiced": 1
+  },
+  "24": {
+    "comments": [
+      "2016-07-05 08:54:11 - really need to find the best way to do this"
+    ],
+    "comfort": "0",
+    "practiced": 1
+  },
+  "22": {
+    "comments": [
+      "2016-07-05 12:06:38 - balls"
+    ],
+    "comfort": "3",
     "practiced": 1
   }
 }
