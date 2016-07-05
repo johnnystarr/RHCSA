@@ -293,7 +293,7 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
 name=added from http://myrepo.com
 baseurl=http://myrepo.com
 enaabled=1
-gpgcheck=0
+gpgcheck=0                        # <----- add this line!
 ```
 
 # objectives: 7_manage_users_and_groups
