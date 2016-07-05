@@ -23,6 +23,7 @@
 - [nss-pam-ldapd](./packages/nss-pam-ldapd.md)
 - [openldap-clients](./packages/openldap-clients.md)
 - [samba-client](./packages/samba-client.md)
+- [settroubleshoot-server](./packages/settroubleshoot-server.md)
 
 ##Services
 - [nmb](./services/nmb.md)
@@ -365,7 +366,11 @@ enabled=1
 - `setenforce Enforcing (or 1)`           - set SELinux to enforcing mode
 - `vi /etc/selinux/config`                - config file to set perm state
 - `chcon -t <type_t> <file>`              - test changing type label context
+- `setsebool -P <boolean> 1|0`            - turn an SELinux boolean on or off
 - `ausearch -m avc`                       - audit failures and review
+- `grep AVC /var/log/audit/audit.log`     - secondary way to get errors
+- `audit2allow -wa`                       - generate steps to make the AVC failure allowed
+- `audit2allow -aM <name>.local`          - create a new module/policy package
 - `restorecon <file>`                     - restore contexts: `/etc/selinux/targeted/contexts/files/`
 - `semanage fcontext -l`                  - view all file contexts (grep if needbe)
 - `yum install -y settroubleshoot-server` - install SELinux troubleshooting tools
