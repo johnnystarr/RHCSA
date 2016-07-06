@@ -1,10 +1,10 @@
 {
   "0": {
     "comments": [
-
+      "2016-07-05 16:48:59 - just don't forget to mount/remount man."
     ],
-    "comfort": "9",
-    "practiced": 1
+    "comfort": "10",
+    "practiced": 2
   },
   "1": {
     "comments": [
@@ -106,10 +106,11 @@
   },
   "15": {
     "comments": [
-      "2016-06-30 14:39:44 - figure out why access is denied for these guys"
+      "2016-06-30 14:39:44 - figure out why access is denied for these guys",
+      "2016-07-05 16:51:34 - this is simple!  smb,nmb and winbind shouldn't be required."
     ],
-    "comfort": "3",
-    "practiced": 1
+    "comfort": "7",
+    "practiced": 2
   },
   "16": {
     "comments": [

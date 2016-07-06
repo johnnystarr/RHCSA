@@ -292,7 +292,7 @@ nfsserver:/dir/share /mnt/nfs nfs4 defaults 0 0
 [myrepo.com]
 name=added from http://myrepo.com
 baseurl=http://myrepo.com
-enaabled=1
+enabled=1
 gpgcheck=0                        # <----- add this line!
 ```
 

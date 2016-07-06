@@ -71,7 +71,7 @@
 [myrepo.com]
 name=added from http://myrepo.com
 baseurl=http://myrepo.com
-enaabled=1
+enabled=1
 gpgcheck=0                        # <----- add this line!
 ```
 
