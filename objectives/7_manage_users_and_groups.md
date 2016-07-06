@@ -34,7 +34,7 @@
     - Use TLS: `ldap://server.example.com`, `dc=example,dc=com`
 - `/etc/openldap/cacerts` - location of LDAP server cert
 - `yum install -y autofs nfs-utils`   - ensure NFS/AUTOFS tools are installed
-- `vi /etc/master.auto.d/home.autofs` - create the master entry
+- `vi /etc/auto.master.d/home.autofs` - create the master entry
   - `/home /etc/auto.home`            - add the primary mountpoint, point to config
 - `vi /etc/auto.home` - create *home* automount
   - `*-rw,sync --fstype=nfs4 instructor.example.com:/home/guests/&` - add this line to `/etc/auto.demo`
