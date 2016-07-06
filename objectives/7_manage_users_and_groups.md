@@ -33,13 +33,14 @@
   - In LDAP Settings:
     - Use TLS: `ldap://server.example.com`, `dc=example,dc=com`
 - `/etc/openldap/cacerts` - location of LDAP server cert
-- `yum install -y autofs nfs-utils` - ensure NFS/AUTOFS tools are installed
-- `vi /etc/auto.demo` - create *demo* automount
+- `yum install -y autofs nfs-utils`   - ensure NFS/AUTOFS tools are installed
+- `vi /etc/master.auto.d/home.autofs` - create the master entry
+  - `/home /etc/auto.home`            - add the primary mountpoint, point to config
+- `vi /etc/auto.home` - create *home* automount
   - `*-rw,sync --fstype=nfs4 instructor.example.com:/home/guests/&` - add this line to `/etc/auto.demo`
-- TODO: read more on "Create a fine in /etc/auto.master.d named demo.master /home/guests /etc/auto.demo"
-- `systemctl start autofs.service`  - start up autofs
-- `systemctl enable autofs.service` - enable it
-- `su <ldapuser>`                   - test the configuration
+- `systemctl start autofs.service`    - start up autofs
+- `systemctl enable autofs.service`   - enable it
+- `su - <ldapuser>`                   - test the configuration
 
 #####Kerberos Configuration
 - `yum install authconfig-gtk krb5-workstation` - install Kerberos tools

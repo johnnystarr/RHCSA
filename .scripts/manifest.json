@@ -156,10 +156,11 @@
   },
   "29": {
     "comments": [
-      "2016-07-02 13:20:23 - not 100% sure about SSL cert: is it provided?"
+      "2016-07-02 13:20:23 - not 100% sure about SSL cert: is it provided?",
+      "2016-07-06 12:01:54 - this is easy, autofs is key"
     ],
-    "comfort": "6",
-    "practiced": 1
+    "comfort": "8",
+    "practiced": 2
   },
   "24": {
     "comments": [
@@ -173,6 +174,20 @@
       "2016-07-05 12:06:38 - balls"
     ],
     "comfort": "3",
+    "practiced": 1
+  },
+  "30": {
+    "comments": [
+      "2016-07-06 12:01:11 - hey cool, no kerberos on this test!"
+    ],
+    "comfort": "10",
+    "practiced": 1
+  },
+  "28": {
+    "comments": [
+
+    ],
+    "comfort": "10",
     "practiced": 1
   }
 }
