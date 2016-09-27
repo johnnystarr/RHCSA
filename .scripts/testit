@@ -1,34 +1,118 @@
 #!/usr/bin/env ruby
 
 require 'term/ansicolor'
+require 'json'
+require 'pry'
+
 include Term::ANSIColor
 
-readme        = File.read('../readme.md').split(/\n/)
-topics        = {}
-current_topic = ''
+# patch to string
+class String
+  def truncate(max)
+    length > max ? "#{self[0...max]}..." : self
+  end
+end
+
+VERSION        = '1.0.1'
+
+mainpath       = '/Users/jonathan.starr/.learn/lib'
+readme         = File.read("#{mainpath}/readme.md").split(/\n/)
+$topics         = {}
+current_topic  = ''
+
+$manifest_file = "#{mainpath}/.scripts/manifest.json"
+$manifest      = JSON.parse(File.read($manifest_file))
 
 readme.each do |line|
   if line.include? '###'
     current_topic = line.gsub('#','')    
-    topics[current_topic] = []
+    $topics[current_topic] = []
   else
-    topics[current_topic] << line if topics[current_topic] unless line.include? 'objective'
+    $topics[current_topic] << line if $topics[current_topic] unless line.include? 'objective'
   end
 end
 
-def test(index,topics)
-  topic = topics.keys[index]
-  steps = topics.values[index]
+def test(index)
+  steps = $topics.values[index]
   steps.each do |step|
     tick = '`'
     code = step[/#{tick}(.*?)#{tick}/,1]
 
     if code 
-      puts step.gsub(code, code.bright_green).gsub('`','')  
+      puts step.gsub(code, code.bright_green).gsub('`',' ')  
     else
       puts step
     end
   end
+
+  
+  $manifest[index.to_s] ||= {
+    'comments'  => [],
+    'comfort'   =>  0,
+    'practiced' =>  0
+  }
+
+  $manifest[index.to_s]['practiced'] += 1
+
+  puts "times practiced: #{$manifest[index.to_s]['practiced']}".blue
+  puts ''
+  puts "comfort level: #{$manifest[index.to_s]['comfort']}".magenta
+  puts ''
+
+  $manifest[index.to_s]['comments'].each do |comment|
+    puts "comment: ".cyan
+    puts comment
+    $stdin.gets()
+  end
+end
+
+def summary
+  puts "thanks for using learnit v#{VERSION}"
+  puts ('-'*80).cyan
+  puts "       topic                                            comfort      practiced"
+  $topics.each_with_index do |(k,v),i|
+    comfort   = $manifest[i.to_s]['comfort'] if $manifest[i.to_s]
+    practiced = $manifest[i.to_s]['practiced'] if $manifest[i.to_s]
+
+    i         = " #{i}" if i < 10
+    comfort   = " #{comfort}" if comfort.to_i < 10
+    practiced = " #{practiced}" if practiced.to_i < 10
+
+    case comfort.to_i
+    when 0..3
+      comfort = "#{comfort.red}"
+    when 4..6
+      comfort = "#{comfort.yellow}"
+    when 7..9
+      comfort = "#{comfort.cyan}"
+    when 10..1000
+      comfort = "#{comfort.green}"  
+    end
+
+    puts "[".dark.white << "#{i}".white << "] -".dark.white << " #{k.truncate(40).ljust(50,' ').dark.green} #{comfort}            #{practiced.to_s.magenta}"
+  end
+end
+
+def shutdown
+  File.write($manifest_file, JSON.pretty_generate($manifest))
+  summary
+  exit
+end
+
+def add_comment(index)
+  print "enter your comment> "
+  comment = "#{Time.now.to_s[0..-7]} - "
+  comment << $stdin.gets().chop
+  $manifest[index.to_s]['comments'] << comment
+  puts 'comment added.'
+end
+
+def set_comfort(index)
+  puts 'What is your comfort level with this topic form 1 - 10?'
+  print '>'
+  comfort = $stdin.gets().chop
+  $manifest[index]['comfort'] = comfort
+  puts "comfort now set to: #{comfort}"
 end
 
 # main entry point of the test
@@ -36,15 +120,45 @@ end
 topic = ARGV.first.to_i
 topic ||= 0
 
+# before our main loop, go over any command line options first
+case ARGV.first
+when 'list'
+  summary
+  exit
+end
+
 while true
   system 'clear'
-  header = topics.keys[topic]
+  header = $topics.keys[topic]
   puts "[#{topic}] - #{header}".yellow
-  puts ''
   puts "[press any key]".red
-  gets()
-  test(topic, topics)  
-  puts "[next topic]".red
-  gets()
+  $stdin.gets()
+  test(topic)  
+
+  while true
+    puts ('-'*80).cyan
+    puts "[ comment ] add a comment"
+    puts "[ comfort ] choose a comfort"
+    puts "[ quit    ] outta here"
+    puts "[ enter   ] next topic"
+    puts ('-'*80).cyan
+    print ">"
+    command = $stdin.gets().chop
+
+    # parse options
+    case command
+    when 'quit'
+      shutdown
+    when 'comment'
+      add_comment(topic.to_s)
+    when 'comfort'
+      set_comfort(topic.to_s)
+    when ''
+      break
+    end
+  end
+
   topic += 1
+
 end
+
