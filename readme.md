@@ -26,7 +26,6 @@
 - [settroubleshoot-server](./packages/settroubleshoot-server.md)
 
 ##Services
-- test
 - [nmb](./services/nmb.md)
 - [rpcbind](./services/rpcbind.md)
 - [smb](./services/smb.md)
