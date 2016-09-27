@@ -25,6 +25,7 @@
 - [samba-client](./packages/samba-client.md)
 
 ##Services
+- test
 - [nmb](./services/nmb.md)
 - [rpcbind](./services/rpcbind.md)
 - [smb](./services/smb.md)
